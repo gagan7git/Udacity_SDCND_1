@@ -1,4 +1,5 @@
 import argparse
+jupyter notebook --port 3002 --ip=0.0.0.0 --allow-root
 import glob
 import os
 import random
