@@ -157,3 +157,30 @@ This section should detail the results of the reference experiment. It should in
 #### Improve on the reference
 This section should highlight the different strategies you adopted to improve your model. It should contain relevant figures and details of your findings.
 # workspace_udacity_1
+
+
+## Submission Template
+
+### <span style="color:red">Project overview</span>
+In this project, we will be using data from the Waymo Open dataset. We have already provided the data required to finish this project in the workspace, so don't need to download it separately.
+Step 1 - Exploratory Data Analysis (EDA): The data already present in /home/workspace/data/ directory to explore the dataset. Here we update the Exploratory Data Analysis notebook is display images. 
+
+Step 2 - Edit the config file
+
+Step 3 - Model Training and Evaluation
+
+### <span style="color:red">Set up</span>
+This section should contain a brief description of the steps to follow to run the code for this repository.
+
+### <span style="color:red">Dataset</span>
+#### <span style="color:red">Dataset analysis</span>
+This section should contain a quantitative and qualitative description of the dataset. It should include images, charts and other visualizations.
+#### <span style="color:red">Cross validation</span>
+This section should detail the cross validation strategy and justify your approach.
+
+### <span style="color:red">Training</span>
+#### <span style="color:red">Reference experiment</span>
+This section should detail the results of the reference experiment. It should includes training metrics and a detailed explanation of the algorithm's performances.
+
+#### <span style="color:red">Improve on the reference
+This section should highlight the different strategies you adopted to improve your model. It should contain relevant figures and details of your findings.
