@@ -1,1 +1,5 @@
 .ipynb_checkpoints/
+/experiments/pretrained_model
+/data/train
+/data/val
+/data/test
