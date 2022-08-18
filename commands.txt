@@ -1,6 +1,6 @@
 Exploratory Data Analysis
 
-python create_splits.py --data-dir /home/workspace/data
+python create_splits.py --data_dir /home/workspace/data
 
 cd /home/workspace/experiments/pretrained_model/
 
