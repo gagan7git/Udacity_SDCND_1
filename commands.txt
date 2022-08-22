@@ -1,3 +1,11 @@
+
+sudo apt-get update
+
+sudo apt-get install chromium-browser
+
+sudo chromium-browser --no-sandbox
+
+
 Exploratory Data Analysis
 cd /home/workspace/
 jupyter notebook --port 3002 --ip=0.0.0.0 --allow-root
@@ -24,12 +32,15 @@ A new config file called pipeline_new.config will be created in the /home/worksp
 
 training:
 python experiments/model_main_tf2.py --model_dir=experiments/reference/ --pipeline_config_path=experiments/reference/pipeline_new.config
+python experiments/model_main_tf2.py --model_dir=experiments/solution/ --pipeline_config_path=experiments/solution/pipeline_new.config
 
 tensorboard:
 python -m tensorboard.main --logdir experiments/reference/
+python -m tensorboard.main --logdir experiments/solution/
 
 evaluation:
 python experiments/model_main_tf2.py --model_dir=experiments/reference/ --pipeline_config_path=experiments/reference/pipeline_new.config --checkpoint_dir=experiments/reference/
+python experiments/model_main_tf2.py --model_dir=experiments/solution/ --pipeline_config_path=experiments/solution/pipeline_new.config --checkpoint_dir=experiments/solution/
 
 
 augmentation:
