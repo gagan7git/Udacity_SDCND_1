@@ -24,7 +24,7 @@ def split(data_dir):
     except:
         print("Issue in TF record file parse")
     np.random.shuffle(files)	
-    train_files, val_file = np.split(files, [int(.75*len(files))])
+    train_files, val_file = np.split(files, [int(.80*len(files))])
     # You should move the files rather than copy because of space limitations in the workspace.
 	
     train = os.path.join(data_dir, 'train')
