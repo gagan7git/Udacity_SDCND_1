@@ -1,4 +1,6 @@
 Exploratory Data Analysis
+cd /home/workspace/
+jupyter notebook --port 3002 --ip=0.0.0.0 --allow-root
 
 python create_splits.py --data_dir /home/workspace/data
 
@@ -32,6 +34,12 @@ python experiments/model_main_tf2.py --model_dir=experiments/reference/ --pipeli
 
 augmentation:
 Explore augmentations.ipynb
+
+  data_augmentation_options {
+    random_rgb_to_gray {
+    probability: 0.2
+    }
+  }
 
 animation:
 python experiments/exporter_main_v2.py --input_type image_tensor --pipeline_config_path experiments/reference/pipeline_new.config --trained_checkpoint_dir experiments/reference/ --output_directory experiments/reference/exported/
