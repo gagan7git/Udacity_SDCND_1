@@ -3,3 +3,5 @@
 /data/train
 /data/val
 /data/test
+/experiments/solution
+/experiments/reference
