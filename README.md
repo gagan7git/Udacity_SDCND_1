@@ -162,25 +162,40 @@ This section should highlight the different strategies you adopted to improve yo
 ## Submission Template
 
 ### <span style="color:red">Project overview</span>
-In this project, we will be using data from the Waymo Open dataset. We have already provided the data required to finish this project in the workspace, so don't need to download it separately.
-Step 1 - Exploratory Data Analysis (EDA): The data already present in /home/workspace/data/ directory to explore the dataset. Here we update the Exploratory Data Analysis notebook is display images. 
+In this project, we will be using data from the Waymo Open dataset. We have already provided the data required to finish this project in the workspace, so don't need to download it separately. TF Object detction APIs are used for objection detecion with available classes - car, cycles and pedestrians.
 
-Step 2 - Edit the config file
+Step 1 - 
+
+Exploratory Data Analysis (EDA): The data already present in /home/workspace/data/ directory to explore the dataset. Here we update the Exploratory Data Analysis notebook is display 10 images with boundary boxes (display_images function is updated in the Exploratory Data Analysis notebook.). 
+
+Additional EDA: 
+
+Step 2 - Edit the config file : config file pipeline.config is used for the SSD Resnet 50 640x640 model configuration. Pretrained model is placed in the below path.
+ /home/workspace/experiments/pretrained_model/
+
+Below command is executed to generate the pipeline_new.config
+
+cd /home/workspace/
+python edit_config.py --train_dir /home/workspace/data/train/ --eval_dir /home/workspace/data/val/ --batch_size 2 --checkpoint /home/workspace/experiments/pretrained_model/ssd_resnet50_v1_fpn_640x640_coco17_tpu-8/checkpoint/ckpt-0 --label_map /home/workspace/experiments/label_map.pbtxt
+
+New pipeline config file generated to perform training is moved inside /home/workspace/experiments/reference/ directory
+
 
 Step 3 - Model Training and Evaluation
 
 ### <span style="color:red">Set up</span>
-This section should contain a brief description of the steps to follow to run the code for this repository.
+Using the Udacity classroom student workspace, not using any local setup.
 
 ### <span style="color:red">Dataset</span>
 #### <span style="color:red">Dataset analysis</span>
 This section should contain a quantitative and qualitative description of the dataset. It should include images, charts and other visualizations.
-#### <span style="color:red">Cross validation</span>
-This section should detail the cross validation strategy and justify your approach.
 
 ### <span style="color:red">Training</span>
 #### <span style="color:red">Reference experiment</span>
 This section should detail the results of the reference experiment. It should includes training metrics and a detailed explanation of the algorithm's performances.
+
+#### <span style="color:red">Cross validation</span>
+This section should detail the cross validation strategy and justify your approach.
 
 #### <span style="color:red">Improve on the reference
 This section should highlight the different strategies you adopted to improve your model. It should contain relevant figures and details of your findings.
