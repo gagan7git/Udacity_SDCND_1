@@ -205,12 +205,21 @@ Observation 2:
 
 Observed in 10 random samples, most of the labels are pointed to cars when compared to pedestrians and bicycles. And number associated to cyclists is vey small. This is noticed even after repeated executions for random dataset. This is not good for training as we should have balanced dataset for all labels under consideration. 
 
+#### <span style="color:red">Additional EDA</span>
+Performed additional analysis on image distribution of images vs classes. Observed number of pedestrians and cyclists images are very low compared to number of cars as shown in the below distribution. Mismatch in the image distribution of classes is not ideal for training. Training Data set can be improved by adding equal image distrubution of all the classes to increase the model performance.
+Note : Class Representation: 1- Cars, 2- pedestrians, 4- cyclists
+
+
+![!](images/additional_eda.PNG)
+
 
 ### <span style="color:red">Training & Evaluation</span>
 
 Have used create_splits.py file split the data into training and validation by picking it from workspace\data\waymo\training_and_validation. Here percentage of training data used is 80% and remaining 20% used for evaluation data.
 
 Note : Training dataset is placed inside workspace\data\train  and evaluation dataset is placed inside workspace\data\eval
+
+
 
 
 #### <span style="color:red">Reference experiment</span>
