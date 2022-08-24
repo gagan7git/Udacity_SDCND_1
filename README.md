@@ -21,11 +21,10 @@ The data you will use for training, validation and testing is organized as follo
 The `training_and_validation` folder contains file that have been downsampled: we have selected one every 10 frames from 10 fps videos. The `testing` folder contains frames from the 10 fps video without downsampling.
 ```
 You will split this `training_and_validation` data into `train`, and `val` sets by completing and executing the `create_splits.py` file.
-
+```
 
 ### Experiments
 The experiments folder will be organized as follow:
-```
 experiments/
     - pretrained_model/
     - exporter_main_v2.py - to create an inference model
@@ -36,7 +35,6 @@ experiments/
     - experiment2/ - create a new folder for each experiment you run
     - label_map.pbtxt
     ...
-```
 
 ## Prerequisites
 
@@ -158,4 +156,113 @@ This section should detail the results of the reference experiment. It should in
 
 #### Improve on the reference
 This section should highlight the different strategies you adopted to improve your model. It should contain relevant figures and details of your findings.
-# workspace_udacity_1
+
+
+## Submission Template
+
+### <span style="color:red">Project overview</span>
+In this project, we will be using data from the Waymo Open dataset for Object Detection. We have already provided with the data required to finish this project in the workspace, so don't need to download it separately. TF Object detction APIs are used for objection detecion with available classes - car, cycles and pedestrians. In this project we first train and evaluate the image data set. After that we analyse the model performance and later improve the model perfomance by data augmentation technique.
+
+
+
+
+
+
+
+
+
+
+
+### <span style="color:red">Set up</span>
+Using the Udacity classroom student workspace, not using any local setup.
+
+### <span style="color:red">Dataset</span>
+
+Step 1 - 
+
+Exploratory Data Analysis (EDA): The data already present in /home/workspace/data/ directory to explore the dataset. Here we update the Exploratory Data Analysis notebook is display 10 images with boundary boxes (display_images function is updated in the Exploratory Data Analysis notebook.). Classes are color coded (vehicles in red, pedestrians in green, cyclist in blue).
+
+Below shows example of one of the displayed image with boundary boxes.
+
+![!](images/2.PNG)
+
+
+
+
+
+
+
+#### <span style="color:red">Dataset analysis</span>
+
+Observation 1:
+
+Noticed some of the images are taken during different lighting conditions. Example below taken during night time.
+
+![!](images/1.PNG)
+
+Observation 2:
+
+
+Observed in 10 random samples, most of the labels are pointed to cars when compared to pedestrians and bicycles. And number associated to cyclists is vey small. This is noticed even after repeated executions for random dataset. This is not good for training as we should have balanced dataset for all labels under consideration. 
+
+
+### <span style="color:red">Training & Evaluation</span>
+
+Have used create_splits.py file split the data into training and validation by picking it from workspace\data\waymo\training_and_validation. Here percentage of training data used is 80% and remaining 20% used for evaluation data.
+
+Note : Training dataset is placed inside workspace\data\train  and evaluation dataset is placed inside workspace\data\eval
+
+
+#### <span style="color:red">Reference experiment</span>
+config file pipeline.config is used for the SSD Resnet 50 640x640 model configuration. Pretrained model is placed in the below path.
+
+
+ /home/workspace/experiments/pretrained_model/
+
+ Below command is executed to generate the pipeline_new.config
+
+cd /home/workspace/
+python edit_config.py --train_dir /home/workspace/data/train/ --eval_dir /home/workspace/data/val/ --batch_size 2 --checkpoint /home/workspace/experiments/pretrained_model/ssd_resnet50_v1_fpn_640x640_coco17_tpu-8/checkpoint/ckpt-0 --label_map /home/workspace/experiments/label_map.pbtxt
+
+New pipeline config file generated to perform training is moved inside /home/workspace/experiments/reference/ directory
+
+
+Below commands are executed to launch the image data set for training and evaluation.
+
+Training:
+python experiments/model_main_tf2.py --model_dir=experiments/reference/ --pipeline_config_path=experiments/reference/pipeline_new.config
+
+Evaulation:
+python experiments/model_main_tf2.py --model_dir=experiments/reference/ --pipeline_config_path=experiments/reference/pipeline_new.config --checkpoint_dir=experiments/reference/
+
+Note : For training and evaluation, we use  experiments/reference/ folder.
+
+
+#### <span style="color:red">Cross validation</span>
+
+Tensorboard instance is launched by running below command to monitor the training and evaluation performance.
+
+python -m tensorboard.main --logdir experiments/reference/
+
+The training loss is indicated in orange and the validation loss in blue.
+
+![!](images/tensor_board_before_augmentation.PNG)
+![!](images/Precision_Recall_before_augmentation.PNG)
+
+We observe training loss diverges at certian points and begins to overfit at that points. 
+
+#### <span style="color:red">Improve on the reference
+
+Experimental results showed that classification with grayscale images resulted in higher accuracy classification than with RGB images. Images can be suitaby augented with gray scale (For example, I would like to add a random RGB to gray transform with a probability of 0.3). During training we havce noticed loss function values are bit higher. One of the reason for this is some of the images considered for training ae taken during night time. This issue can be addressed by augmenting the images by decreasing the brightness of images which will mimic the night conditions. Augmentations are added in the pipeline config file. And to visualize these augmentations, Explore augmentations.ipynb file is updated. 
+
+Updated pipeline_new.config file is placed inside /home/workspace/experiments/solution/ directory
+
+Below shows example of augmented image with RGB to gray transform with a probability of 0.3.
+
+![!](images/image_after_augmentation_with_gray.PNG)
+
+After performing augmentation, we run the training and evaluation on augmented data. We see model performance improves after augmentation as shown in the below graphs.
+
+Note : For training and evaluation, we use  experiments/solution/ folder.
+
+![!](images/tensorboard_after_augmentation.JPG)
