@@ -156,7 +156,6 @@ This section should detail the results of the reference experiment. It should in
 
 #### Improve on the reference
 This section should highlight the different strategies you adopted to improve your model. It should contain relevant figures and details of your findings.
-# workspace_udacity_1
 
 
 ## Submission Template
@@ -216,6 +215,8 @@ Note : Training dataset is placed inside workspace\data\train  and evaluation da
 
 #### <span style="color:red">Reference experiment</span>
 config file pipeline.config is used for the SSD Resnet 50 640x640 model configuration. Pretrained model is placed in the below path.
+
+
  /home/workspace/experiments/pretrained_model/
 
  Below command is executed to generate the pipeline_new.config
@@ -226,7 +227,7 @@ python edit_config.py --train_dir /home/workspace/data/train/ --eval_dir /home/w
 New pipeline config file generated to perform training is moved inside /home/workspace/experiments/reference/ directory
 
 
-Below commands are executed to launch the image data set training and evaluation.
+Below commands are executed to launch the image data set for training and evaluation.
 
 Training:
 python experiments/model_main_tf2.py --model_dir=experiments/reference/ --pipeline_config_path=experiments/reference/pipeline_new.config
@@ -239,7 +240,8 @@ Note : For training and evaluation, we use  experiments/reference/ folder.
 
 #### <span style="color:red">Cross validation</span>
 
-Tensorboard instance is launched by running below command to monitor the training and evaluation performance graphs for resnet model.
+Tensorboard instance is launched by running below command to monitor the training and evaluation performance.
+
 python -m tensorboard.main --logdir experiments/reference/
 
 The training loss is indicated in orange and the validation loss in blue.
@@ -251,12 +253,16 @@ We observe training loss diverges at certian points and begins to overfit at tha
 
 #### <span style="color:red">Improve on the reference
 
-During training we havce noticed loss function values are bit higher. One of the reason for this is some of the images considered for training ae taken during night time. This issue can be addressed by augmenting the images by adding gray factor to rgb images or by decreasing the brightness of images. Augmentations are added in the pipeline config file. And to visualize these augmentations, Explore augmentations.ipynb file is updated.
+Experimental results showed that classification with grayscale images resulted in higher accuracy classification than with RGB images. Images can be suitaby augented with gray scale (For example, I would like to add a random RGB to gray transform with a probability of 0.3). During training we havce noticed loss function values are bit higher. One of the reason for this is some of the images considered for training ae taken during night time. This issue can be addressed by augmenting the images by decreasing the brightness of images which will mimic the night conditions. Augmentations are added in the pipeline config file. And to visualize these augmentations, Explore augmentations.ipynb file is updated. 
 
 Updated pipeline_new.config file is placed inside /home/workspace/experiments/solution/ directory
+
+Below shows example of augmented image with RGB to gray transform with a probability of 0.3.
+
+![!](images/image_after_augmentation_with_gray.PNG)
 
 After performing augmentation, we run the training and evaluation on augmented data. We see model performance improves after augmentation as shown in the below graphs.
 
 Note : For training and evaluation, we use  experiments/solution/ folder.
 
-
+![!](images/tensorboard_after_augmentation.JPG)
